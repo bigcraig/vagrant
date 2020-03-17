@@ -13,11 +13,13 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/trusty64"
+  #config.vm.name = "node1"
+  config.vm.hostname = "node1"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  # config.vm.box_check_update = fa lse
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -32,8 +34,9 @@ Vagrant.configure("2") do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-   config.vm.network "private_network", type: "dhcp",
+   config.vm.network "private_network", ip: "192.168.42.10",
    virtualbox__intnet: "VMNet"
+  # 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
@@ -51,10 +54,12 @@ Vagrant.configure("2") do |config|
   #
    config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
+      vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
       vb.memory = "4096"
+  #   vb.hostname = "node1"
+      vb.name  = "node1"
    end
   #
   # View the documentation for the provider you are using for more
@@ -68,7 +73,7 @@ Vagrant.configure("2") do |config|
     curl -L https://debian.datastax.com/debian/repo_key > /tmp/testfile
     apt-key add /tmp/testfile
     sudo add-apt-repository ppa:openjdk-r/ppa
-        apt-get update
+       apt-get update
     apt-get install libaio1
     sudo apt-get -y install dse-full
     sudo apt-get -y install openjdk-8-jdk
